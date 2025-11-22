@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import { TonConnectUIProvider } from '@tonconnect/ui-react'
 import "./globals.css";
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -29,8 +28,6 @@ export const metadata: Metadata = {
   },
 };
 
-const manifestUrl = 'https://deparkalert.vercel.app/tonconnect-manifest.json'
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -39,9 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans antialiased`}>
-        <TonConnectUIProvider manifestUrl={manifestUrl}>
-          {children}
-        </TonConnectUIProvider>
+        {children}
         <Analytics />
       </body>
     </html>

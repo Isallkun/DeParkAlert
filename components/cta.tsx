@@ -19,7 +19,7 @@ export function CTA() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/dapp">
+          <Link href="/dapp-simple">
             <button className="px-10 py-4 bg-gradient-to-r from-primary to-accent text-background rounded-lg font-semibold hover:opacity-90 transition flex items-center justify-center gap-2 group">
               Launch App
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition" />

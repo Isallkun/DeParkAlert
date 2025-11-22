@@ -1,7 +1,9 @@
 # DeParkAlert - Project Structure
 
 ## 📋 Overview
-DeParkAlert adalah aplikasi monitoring parkir berbasis web yang dibangun dengan Next.js 16, React 19, dan Tailwind CSS. Aplikasi ini dirancang untuk memberikan notifikasi real-time tentang ketersediaan tempat parkir.
+**DeParkAlert** — Real-Time Traffic Intelligence on Decentralized Infrastructure
+
+Sistem monitoring parkir dan lalu lintas terdesentralisasi yang menggabungkan AI-based image classification, blockchain verification (TON Network), dan decentralized storage untuk menciptakan ekosistem pelaporan lalu lintas yang transparan dan terverifikasi.
 
 ## 🏗️ Teknologi Stack
 - **Framework**: Next.js 16.0.0

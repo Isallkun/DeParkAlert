@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ArrowRight, Zap } from "lucide-react";
 
 export function Hero() {
@@ -33,10 +34,12 @@ export function Hero() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition flex items-center gap-2 group">
-              Launch App
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition" />
-            </button>
+            <Link href="/dapp-simple">
+              <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition flex items-center gap-2 group">
+                Launch App
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition" />
+              </button>
+            </Link>
             <button className="px-8 py-4 bg-background border border-border text-foreground rounded-lg font-semibold hover:bg-border/50 transition">
               View Docs
             </button>
