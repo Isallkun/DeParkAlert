@@ -23,7 +23,7 @@ export default function MapPage() {
           <Search className="absolute left-4 top-3.5 w-5 h-5 text-slate-400" />
           <input
             type="text"
-            placeholder="Cari lokasi parkir..."
+            placeholder="Cari jalan atau area parkir..."
             className="w-full bg-black/60 backdrop-blur-md border border-white/20 rounded-xl pl-12 pr-4 py-3 text-white focus:outline-none focus:border-violet-500"
           />
         </div>
@@ -33,19 +33,40 @@ export default function MapPage() {
         </button>
       </div>
 
-      {/* Legend */}
-      <div className="absolute bottom-6 left-6 p-4 rounded-xl bg-black/70 backdrop-blur-xl border border-white/10 space-y-3">
-        <div className="flex items-center gap-3">
-          <span className="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]"></span>
-          <span className="text-sm text-slate-300">Tersedia (&gt;50%)</span>
+      {/* Legend - Updated for both Traffic and Parking */}
+      <div className="absolute bottom-6 left-6 p-4 rounded-xl bg-black/80 backdrop-blur-xl border border-white/10 space-y-4 min-w-[200px]">
+        <div>
+          <p className="text-xs font-bold text-slate-400 uppercase mb-2 tracking-wider">Parkir (Titik)</p>
+          <div className="space-y-2">
+            <div className="flex items-center gap-3">
+              <span className="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+              <span className="text-sm text-slate-300">Tersedia</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]"></span>
+              <span className="text-sm text-slate-300">Penuh / Ilegal</span>
+            </div>
+          </div>
         </div>
-        <div className="flex items-center gap-3">
-          <span className="w-3 h-3 rounded-full bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]"></span>
-          <span className="text-sm text-slate-300">Hampir Penuh</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <span className="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></span>
-          <span className="text-sm text-slate-300">Penuh / Ilegal</span>
+
+        <div className="h-px bg-white/10 w-full"></div>
+
+        <div>
+          <p className="text-xs font-bold text-slate-400 uppercase mb-2 tracking-wider">Lalu Lintas (Jalur)</p>
+          <div className="space-y-2">
+            <div className="flex items-center gap-3">
+              <span className="w-8 h-1.5 rounded-full bg-emerald-500/50 border border-emerald-500"></span>
+              <span className="text-sm text-slate-300">Lancar</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="w-8 h-1.5 rounded-full bg-orange-500/50 border border-orange-500"></span>
+              <span className="text-sm text-slate-300">Padat</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="w-8 h-1.5 rounded-full bg-red-600/50 border border-red-600 animate-pulse"></span>
+              <span className="text-sm text-slate-300">Macet Total</span>
+            </div>
+          </div>
         </div>
       </div>
 

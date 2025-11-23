@@ -1,42 +1,31 @@
-import type { Metadata } from "next";
+'use client';
+
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { TonConnectUIProvider } from "@tonconnect/ui-react";
+
 import "./globals.css";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "DeParkAlert - Decentralized Traffic Intelligence",
-  description: "Real-time traffic monitoring powered by AI and blockchain",
-  icons: {
-    icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    apple: "/apple-icon.png",
-  },
-};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Auto-detect manifest URL based on environment
+  const manifestUrl = process.env.NEXT_PUBLIC_MANIFEST_URL || 
+    (typeof window !== 'undefined' && window.location.hostname !== 'localhost'
+      ? `${window.location.origin}/tonconnect-manifest.json`
+      : 'https://ton-connect.github.io/demo-dapp-with-react-ui/tonconnect-manifest.json');
+
   return (
     <html lang="en">
       <body className={`font-sans antialiased`}>
-        {children}
+        <TonConnectUIProvider manifestUrl={manifestUrl}>
+          {children}
+        </TonConnectUIProvider>
         <Analytics />
       </body>
     </html>

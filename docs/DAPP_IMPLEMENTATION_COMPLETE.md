@@ -91,16 +91,20 @@ http://localhost:3000/dapp-simple
 - Quick Report button
 
 ### Report (`/dapp-simple/report`)
-- Photo upload area with hover effects
+- **Dual Mode Switcher**: Toggle between Parkir and Lalu Lintas
+- Photo upload area with dynamic colors based on mode
 - Location input with GPS icon
-- Description textarea
-- Density selection buttons (Sepi, Ramai, Penuh)
-- Submit button with gradient
+- **Parking Mode**: Jenis parkir dropdown, kapasitas buttons
+- **Traffic Mode**: Penyebab kemacetan, tingkat kemacetan buttons
+- Dynamic placeholder text based on mode
+- Submit button with gradient (violet for parking, orange-red for traffic)
 
 ### Map (`/dapp-simple/map`)
 - Full-screen map placeholder
 - Search bar with filter button
-- Legend with 3 status types
+- **Enhanced Legend**: Separated sections for Parkir (dots) and Lalu Lintas (lines)
+- **Parking Legend**: Tersedia (green), Penuh/Ilegal (red)
+- **Traffic Legend**: Lancar (green line), Padat (orange line), Macet Total (red pulsing line)
 - Mock pin with tooltip
 - Grayscale to color on hover
 

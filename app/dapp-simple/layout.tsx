@@ -9,11 +9,12 @@ import {
   User, 
   Menu, 
   Bell, 
-  Wallet, 
   ChevronRight,
   LogOut
 } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
+import { WalletCard } from '@/components/dapp/layout/WalletCard'
+import { WalletButton } from '@/components/dapp/shared/WalletButton'
 
 const menuItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, href: '/dapp-simple' },
@@ -70,24 +71,7 @@ export default function DAppLayout({ children }: { children: React.ReactNode }) 
           </div>
 
           {/* Wallet Connection Box */}
-          <div className="rounded-2xl p-5 mb-8 bg-gradient-to-b from-white/5 to-transparent border border-white/10 backdrop-blur-md relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity">
-              <Wallet className="w-12 h-12 text-violet-500 -rotate-12" />
-            </div>
-            <div className="relative z-10">
-              <div className="flex items-center mb-3 gap-2">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
-                </span>
-                <p className="text-xs font-semibold text-red-400 uppercase tracking-wider">Not Connected</p>
-              </div>
-              <button className="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-sm font-semibold py-2.5 px-4 rounded-xl transition-all shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 active:scale-95 mb-3">
-                Connect Wallet
-              </button>
-              <p className="text-[10px] text-slate-400 leading-relaxed">Connect TON wallet to access features.</p>
-            </div>
-          </div>
+          <WalletCard />
 
           {/* Navigation Menu */}
           <nav className="flex-grow space-y-1">
@@ -167,10 +151,9 @@ export default function DAppLayout({ children }: { children: React.ReactNode }) 
                 <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full animate-pulse border border-[#0a0a0f]"></span>
               </button>
 
-              <button className="hidden sm:flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full hover:border-violet-500/50 hover:bg-violet-500/10 transition-all group">
-                <Wallet size={18} className="text-violet-400 group-hover:scale-110 transition-transform" />
-                <span className="font-medium text-white text-sm">0x12...8842</span>
-              </button>
+              <div className="hidden sm:block">
+                <WalletButton variant="secondary" size="sm" />
+              </div>
             </div>
           </header>
 

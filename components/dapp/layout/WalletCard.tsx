@@ -1,21 +1,11 @@
 'use client'
 
 import { Wallet } from 'lucide-react'
-import { GradientButton } from '../shared/GradientButton'
+import { useWalletConnection } from '@/hooks/use-wallet-connection'
+import { WalletButton } from '../shared/WalletButton'
 
-interface WalletCardProps {
-  isConnected?: boolean
-  address?: string
-  onConnect?: () => void
-  onDisconnect?: () => void
-}
-
-export function WalletCard({ 
-  isConnected = false, 
-  address,
-  onConnect,
-  onDisconnect 
-}: WalletCardProps) {
+export function WalletCard() {
+  const { isConnected, address, formatAddress } = useWalletConnection();
   return (
     <div className="rounded-2xl p-5 mb-8 bg-gradient-to-b from-white/5 to-transparent border border-white/10 backdrop-blur-md relative overflow-hidden group">
       <div className="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity">
@@ -37,15 +27,15 @@ export function WalletCard({
             <div className="mb-3 p-3 bg-black/20 rounded-lg">
               <p className="text-xs text-slate-400 mb-1">Wallet Address</p>
               <p className="text-sm font-mono text-white truncate">
-                {address || '0x1234...5678'}
+                {address ? formatAddress(address) : '0x1234...5678'}
               </p>
             </div>
-            <button
-              onClick={onDisconnect}
-              className="w-full bg-white/10 hover:bg-white/20 text-white text-sm font-semibold py-2.5 px-4 rounded-xl transition-all border border-white/10"
-            >
-              Disconnect
-            </button>
+            <WalletButton 
+              variant="secondary" 
+              size="md" 
+              fullWidth 
+              showIcon={false}
+            />
           </>
         ) : (
           <>
@@ -58,14 +48,12 @@ export function WalletCard({
                 Not Connected
               </p>
             </div>
-            <GradientButton
-              onClick={onConnect}
-              fullWidth
-              size="md"
+            <WalletButton 
+              variant="primary" 
+              size="md" 
+              fullWidth 
               className="mb-3"
-            >
-              Connect Wallet
-            </GradientButton>
+            />
             <p className="text-[10px] text-slate-400 leading-relaxed">
               Connect TON wallet to access features.
             </p>

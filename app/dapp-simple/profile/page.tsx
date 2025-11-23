@@ -6,21 +6,28 @@ export default function ProfilePage() {
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Profile Header */}
-      <div className="relative h-48 rounded-3xl overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-violet-900/80 to-indigo-900/80"></div>
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-30"></div>
-        <div className="absolute -bottom-10 left-8 flex items-end gap-6">
-          <div className="w-24 h-24 rounded-full border-4 border-[#0a0a0f] bg-slate-800 shadow-xl overflow-hidden">
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Profile" className="w-full h-full bg-slate-700" />
-          </div>
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold text-white">Alex The Ranger</h2>
-            <p className="text-violet-300 text-sm">Bergabung sejak 2024</p>
+      <div className="relative rounded-3xl overflow-hidden bg-white/5 border border-white/10 backdrop-blur-sm">
+        {/* Background Banner */}
+        <div className="relative h-32 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-violet-900/80 to-indigo-900/80"></div>
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-30"></div>
+        </div>
+        
+        {/* Profile Info Section */}
+        <div className="relative px-8 pb-6">
+          <div className="flex flex-col sm:flex-row items-center sm:items-end gap-6 -mt-12">
+            <div className="w-24 h-24 rounded-full border-4 border-[#0a0a0f] bg-slate-800 shadow-xl overflow-hidden flex-shrink-0">
+              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Profile" className="w-full h-full bg-slate-700" />
+            </div>
+            <div className="text-center sm:text-left mb-2">
+              <h2 className="text-2xl font-bold text-white">Alex The Ranger</h2>
+              <p className="text-violet-300 text-sm">Bergabung sejak 2024</p>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-12">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column: Stats & Rep */}
         <div className="space-y-6">
           <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
