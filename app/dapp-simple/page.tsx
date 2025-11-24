@@ -4,6 +4,7 @@ import { Upload, TrendingUp, Wallet, ShieldCheck, Loader2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useWalletConnection } from '@/hooks/use-wallet-connection'
+import { ReportModal } from '@/components/dapp/shared/ReportModal'
 import type { Report, UserStats } from '@/lib/mock-data'
 
 export default function DAppPage() {
@@ -12,6 +13,13 @@ export default function DAppPage() {
   const [stats, setStats] = useState<UserStats | null>(null)
   const [recentReports, setRecentReports] = useState<Report[]>([])
   const [loading, setLoading] = useState(true)
+  const [selectedReport, setSelectedReport] = useState<Report | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleReportClick = (report: Report) => {
+    setSelectedReport(report)
+    setIsModalOpen(true)
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -166,7 +174,11 @@ export default function DAppPage() {
                       'text-red-400'
 
                     return (
-                      <tr key={report.id} className="hover:bg-white/5 transition-colors">
+                      <tr 
+                        key={report.id} 
+                        onClick={() => handleReportClick(report)}
+                        className="hover:bg-white/5 transition-colors cursor-pointer"
+                      >
                         <td className="p-4 text-white font-medium truncate max-w-[200px]">
                           {report.location.address}
                         </td>
@@ -224,6 +236,13 @@ export default function DAppPage() {
           </div>
         </div>
       </div>
+
+      {/* Report Details Modal */}
+      <ReportModal
+        report={selectedReport}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   )
 }

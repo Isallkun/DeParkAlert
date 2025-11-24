@@ -12,19 +12,32 @@ DeParkAlert adalah sistem monitoring parkir dan lalu lintas terdesentralisasi ya
 
 ## ✨ Features
 
-### 🎯 Core Features
-- **🤖 AI-Powered Classification** - Automatic parking condition detection
-- **🔗 Blockchain Verification** - Immutable reports on TON Network
-- **💰 Token Rewards** - Earn $DPARK tokens for verified reports
-- **🗺️ Interactive Map** - Real-time traffic visualization
-- **🏆 Gamification** - Leaderboard and achievement system
+### 🎯 Core Features (Implemented)
+- **🔗 TON Wallet Integration** - Connect with Tonkeeper, MyTonWallet, etc.
+- **📸 Photo Upload** - Submit reports with image validation
+- **📍 Geolocation** - Auto-detect location with GPS
+- **🗺️ Interactive Map** - Leaflet map with 25+ markers
+- **🏆 Leaderboard** - Real-time rankings with trend indicators
+- **🎯 Achievements** - 8 unlockable badges based on activity
+- **📊 User Profile** - Track stats, rewards, and reputation
+- **🔔 Notifications** - Toast notifications for all actions
 - **📱 Mobile Responsive** - Works seamlessly on all devices
 
 ### 🎨 Design Features
 - **Glassmorphism UI** - Modern semi-transparent design
 - **Dark Mode** - Optimized for Web3 aesthetic
 - **Ambient Lighting** - Beautiful blur orb effects
-- **Smooth Animations** - 60fps transitions and micro-interactions
+- **Smooth Animations** - Fade-in, scale-in, slide transitions
+- **Micro-interactions** - Hover effects and loading states
+- **Report Modal** - Detailed view with AI confidence & rewards
+
+### 🚀 Technical Features
+- **Mock API** - 4 REST endpoints with 25+ reports
+- **Real-time Stats** - Dynamic data from API
+- **Network Badge** - Show mainnet/testnet status
+- **Copy Address** - One-click wallet address copy
+- **Filter System** - Filter reports by type (parking/traffic)
+- **Time Formatting** - Human-readable timestamps
 
 ## 🚀 Quick Start
 
@@ -40,18 +53,28 @@ DeParkAlert adalah sistem monitoring parkir dan lalu lintas terdesentralisasi ya
 git clone https://github.com/your-username/DeParkAlert.git
 cd DeParkAlert
 
-# Install dependencies
+# Install frontend dependencies
 npm install
-# or
-pnpm install
 
-# Start development server
-npm run dev
-# or
-pnpm dev
+# Install backend dependencies
+cd backend
+npm install
+cd ..
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the application.
+### Running the Application
+
+```bash
+# Terminal 1: Start backend API
+cd backend
+npm start
+
+# Terminal 2: Start frontend
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) for frontend  
+Backend API runs on [http://localhost:3001](http://localhost:3001)
 
 ## 📱 Application Structure
 
@@ -80,16 +103,20 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 - **Language**: TypeScript 5
 
 ### Blockchain
-- **Network**: TON Blockchain
-- **Wallet**: TonConnect SDK
-- **Smart Contracts**: Tact/TypeScript
+- **Network**: TON Blockchain (Testnet)
+- **Wallet**: TonConnect SDK ✅
+- **Smart Contract**: Tact language ✅
+- **Contract**: ReportRegistry (ready to deploy)
+- **Functions**: Submit, Verify, Query ✅
 
-### Backend (Planned)
-- **Runtime**: Node.js 22
-- **Framework**: Express.js
-- **Database**: MongoDB
-- **AI Engine**: TensorFlow.js
-- **Storage**: IPFS / Cloudinary
+### Backend
+- **Runtime**: Node.js 18+
+- **Framework**: Express.js ✅
+- **Storage**: In-memory (MongoDB planned)
+- **API**: REST endpoints ✅
+- **Hash Generation**: SHA-256 ✅
+- **AI Engine**: TensorFlow.js (planned)
+- **Storage**: IPFS / Cloudinary (planned)
 
 ## 🎨 Design System
 
@@ -150,29 +177,39 @@ npm run lint         # Run ESLint
 
 ## 📊 Current Status
 
-### ✅ Completed (MVP Phase 1)
+### ✅ Completed (MVP Phase 1) - Demo Ready!
 - [x] Landing page with glassmorphism design
+- [x] Statistics section with real-time data
+- [x] FAQ section with accordion
+- [x] Testimonials section
 - [x] DApp layout with sidebar navigation
-- [x] Dashboard with statistics cards
-- [x] Report submission UI
-- [x] Interactive map placeholder
-- [x] Leaderboard with podium display
-- [x] User profile with achievements
+- [x] **Real wallet connection (TonConnect)** ✨
+- [x] Dashboard with real user stats
+- [x] **Photo upload with validation** ✨
+- [x] **Report submission with geolocation** ✨
+- [x] **Interactive map with Leaflet** ✨
+- [x] **25+ mock reports with markers** ✨
+- [x] Leaderboard with real rankings
+- [x] **Profile with achievements system** ✨
+- [x] **Report details modal** ✨
+- [x] **Smooth animations & transitions** ✨
+- [x] Toast notifications
+- [x] Loading states everywhere
 - [x] Mobile responsive design
-- [x] TON Connect dependencies
+- [x] **Mock API endpoints (4 routes)** ✨
 
 ### 🚧 In Progress
-- [ ] Real wallet connection (TonConnect)
-- [ ] Backend API development
-- [ ] AI model integration
-- [ ] Smart contract deployment
+- [ ] Backend API development (Express + MongoDB)
+- [ ] AI model integration (TensorFlow.js)
+- [ ] Smart contract deployment (TON)
+- [ ] IPFS storage integration
 
 ### 📋 Planned Features
-- [ ] Photo upload with AI classification
-- [ ] Real-time map with live data
+- [ ] Real AI classification
 - [ ] Blockchain transaction handling
 - [ ] Token reward distribution
 - [ ] Community verification system
+- [ ] Mobile app (React Native)
 
 ## 🎯 Roadmap
 
