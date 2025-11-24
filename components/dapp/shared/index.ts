@@ -1,2 +1,3 @@
 export { WalletButton } from './WalletButton';
 export { GradientButton } from './GradientButton';
+export { NetworkBadge } from './NetworkBadge';

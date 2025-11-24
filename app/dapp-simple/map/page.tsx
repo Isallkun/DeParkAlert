@@ -1,21 +1,62 @@
 'use client'
 
-import { Search, Filter } from 'lucide-react'
+import { Search, Filter, Loader2 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
+import type { Report } from '@/lib/mock-data'
+
+// Dynamic import to avoid SSR issues with Leaflet
+const MapView = dynamic(
+  () => import('@/components/dapp/map/MapView').then((mod) => mod.MapView),
+  { 
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center bg-[#1a1a24] rounded-2xl">
+        <Loader2 className="w-12 h-12 text-violet-400 animate-spin" />
+      </div>
+    )
+  }
+)
 
 export default function MapPage() {
-  return (
-    <div className="h-[calc(100vh-8rem)] relative rounded-3xl border border-white/10 overflow-hidden bg-[#12121a] animate-fade-in group">
-      {/* Map Background (Placeholder) */}
-      <div className="absolute inset-0 opacity-40 bg-[url('https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/106.8272,-6.1751,13,0/800x600?access_token=pk.example')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"></div>
+  const [reports, setReports] = useState<Report[]>([])
+  const [loading, setLoading] = useState(true)
+  const [filter, setFilter] = useState<'all' | 'parking' | 'traffic'>('all')
 
-      {/* Interactive Overlay Grids for Mockup */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: 'radial-gradient(circle, rgba(124, 58, 237, 0.1) 1px, transparent 1px)',
-          backgroundSize: '40px 40px',
-        }}
-      ></div>
+  useEffect(() => {
+    async function fetchReports() {
+      try {
+        const res = await fetch('/api/reports')
+        const data = await res.json()
+        if (data.success) {
+          setReports(data.data)
+        }
+      } catch (error) {
+        console.error('Failed to fetch reports:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchReports()
+  }, [])
+
+  const filteredReports = reports.filter(report => {
+    if (filter === 'all') return true
+    return report.type === filter
+  })
+  return (
+    <div className="h-[calc(100vh-8rem)] relative rounded-3xl border border-white/10 overflow-hidden bg-[#12121a] animate-fade-in">
+      {/* Map Container */}
+      <div className="absolute inset-0">
+        {loading ? (
+          <div className="w-full h-full flex items-center justify-center">
+            <Loader2 className="w-12 h-12 text-violet-400 animate-spin" />
+          </div>
+        ) : (
+          <MapView reports={filteredReports} />
+        )}
+      </div>
 
       {/* Floating UI: Search */}
       <div className="absolute top-6 left-6 right-6 z-10 flex flex-col md:flex-row gap-4">
@@ -27,10 +68,38 @@ export default function MapPage() {
             className="w-full bg-black/60 backdrop-blur-md border border-white/20 rounded-xl pl-12 pr-4 py-3 text-white focus:outline-none focus:border-violet-500"
           />
         </div>
-        <button className="px-6 py-3 bg-black/60 backdrop-blur-md border border-white/20 rounded-xl text-white flex items-center gap-2 hover:bg-white/10">
-          <Filter className="w-5 h-5" />
-          Filter
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setFilter('all')}
+            className={`px-4 py-3 backdrop-blur-md border rounded-xl text-sm font-medium transition-all ${
+              filter === 'all'
+                ? 'bg-violet-600 border-violet-500 text-white'
+                : 'bg-black/60 border-white/20 text-slate-400 hover:bg-white/10'
+            }`}
+          >
+            All
+          </button>
+          <button
+            onClick={() => setFilter('parking')}
+            className={`px-4 py-3 backdrop-blur-md border rounded-xl text-sm font-medium transition-all ${
+              filter === 'parking'
+                ? 'bg-violet-600 border-violet-500 text-white'
+                : 'bg-black/60 border-white/20 text-slate-400 hover:bg-white/10'
+            }`}
+          >
+            Parkir
+          </button>
+          <button
+            onClick={() => setFilter('traffic')}
+            className={`px-4 py-3 backdrop-blur-md border rounded-xl text-sm font-medium transition-all ${
+              filter === 'traffic'
+                ? 'bg-violet-600 border-violet-500 text-white'
+                : 'bg-black/60 border-white/20 text-slate-400 hover:bg-white/10'
+            }`}
+          >
+            Traffic
+          </button>
+        </div>
       </div>
 
       {/* Legend - Updated for both Traffic and Parking */}
@@ -70,17 +139,11 @@ export default function MapPage() {
         </div>
       </div>
 
-      {/* Mock Pins */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div className="relative group/pin cursor-pointer">
-          <div className="w-8 h-8 rounded-full bg-violet-600/30 flex items-center justify-center animate-pulse">
-            <div className="w-4 h-4 rounded-full bg-violet-500 shadow-lg shadow-violet-500/50"></div>
-          </div>
-          {/* Tooltip */}
-          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 bg-black/90 text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover/pin:opacity-100 transition-opacity">
-            Parkir Ilegal Terdeteksi
-          </div>
-        </div>
+      {/* Stats Badge */}
+      <div className="absolute top-6 right-6 z-10 px-4 py-2 bg-black/80 backdrop-blur-xl border border-white/10 rounded-xl">
+        <p className="text-xs text-slate-400">
+          Showing <span className="text-white font-bold">{filteredReports.length}</span> reports
+        </p>
       </div>
     </div>
   )

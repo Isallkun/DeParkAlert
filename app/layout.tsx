@@ -3,6 +3,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
+import { Toaster } from "@/components/ui/toaster";
 
 import "./globals.css";
 
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={`font-sans antialiased`}>
         <TonConnectUIProvider manifestUrl={manifestUrl}>
           {children}
+          <Toaster />
         </TonConnectUIProvider>
         <Analytics />
       </body>

@@ -1,11 +1,34 @@
 'use client'
 
-import { Wallet } from 'lucide-react'
+import { Wallet, Copy, Check } from 'lucide-react'
+import { useState } from 'react'
 import { useWalletConnection } from '@/hooks/use-wallet-connection'
 import { WalletButton } from '../shared/WalletButton'
+import { NetworkBadge } from '../shared/NetworkBadge'
+import { useToast } from '@/hooks/use-toast'
 
 export function WalletCard() {
-  const { isConnected, address, formatAddress } = useWalletConnection();
+  const { isConnected, address, formatAddress, copyAddress } = useWalletConnection();
+  const { toast } = useToast();
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await copyAddress();
+      setCopied(true);
+      toast({
+        title: "Address copied!",
+        description: "Wallet address copied to clipboard",
+      });
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      toast({
+        title: "Failed to copy",
+        description: "Could not copy address to clipboard",
+        variant: "destructive",
+      });
+    }
+  };
   return (
     <div className="rounded-2xl p-5 mb-8 bg-gradient-to-b from-white/5 to-transparent border border-white/10 backdrop-blur-md relative overflow-hidden group">
       <div className="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity">
@@ -15,20 +38,36 @@ export function WalletCard() {
       <div className="relative z-10">
         {isConnected ? (
           <>
-            <div className="flex items-center mb-3 gap-2">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-              </span>
-              <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">
-                Connected
-              </p>
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+                <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">
+                  Connected
+                </p>
+              </div>
+              <NetworkBadge />
             </div>
-            <div className="mb-3 p-3 bg-black/20 rounded-lg">
+            <div className="mb-3 p-3 bg-black/20 rounded-lg group/address hover:bg-black/30 transition-colors">
               <p className="text-xs text-slate-400 mb-1">Wallet Address</p>
-              <p className="text-sm font-mono text-white truncate">
-                {address ? formatAddress(address) : '0x1234...5678'}
-              </p>
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-sm font-mono text-white truncate">
+                  {address ? formatAddress(address) : '0x1234...5678'}
+                </p>
+                <button
+                  onClick={handleCopy}
+                  className="p-1.5 rounded-lg hover:bg-white/10 transition-colors"
+                  title="Copy address"
+                >
+                  {copied ? (
+                    <Check className="w-4 h-4 text-emerald-400" />
+                  ) : (
+                    <Copy className="w-4 h-4 text-slate-400 group-hover/address:text-white transition-colors" />
+                  )}
+                </button>
+              </div>
             </div>
             <WalletButton 
               variant="secondary" 

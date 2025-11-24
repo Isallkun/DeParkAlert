@@ -2,6 +2,7 @@
 
 import { Wallet, Loader2 } from 'lucide-react';
 import { useWalletConnection } from '@/hooks/use-wallet-connection';
+import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
 interface WalletButtonProps {
@@ -20,6 +21,7 @@ export function WalletButton({
   className
 }: WalletButtonProps) {
   const { isConnected, isConnecting, address, formatAddress, connect, disconnect } = useWalletConnection();
+  const { toast } = useToast();
 
   const baseClasses = 'font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2';
   
@@ -36,10 +38,26 @@ export function WalletButton({
   };
 
   const handleClick = async () => {
-    if (isConnected) {
-      await disconnect();
-    } else {
-      await connect();
+    try {
+      if (isConnected) {
+        await disconnect();
+        toast({
+          title: "Wallet disconnected",
+          description: "Your wallet has been disconnected successfully",
+        });
+      } else {
+        await connect();
+        toast({
+          title: "Wallet connected!",
+          description: "Your TON wallet is now connected",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Connection failed",
+        description: error instanceof Error ? error.message : "Failed to connect wallet",
+        variant: "destructive",
+      });
     }
   };
 
